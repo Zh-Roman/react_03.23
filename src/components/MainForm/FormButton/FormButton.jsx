@@ -13,11 +13,12 @@ class FormButton extends React.Component {
   };
 
   render() {
+    const {resetForm, buttonsData: {buttonType, buttonPurpose}} = this.props;
     return (
-        <button onClick={this.props.resetForm ? this.handleClick : null}
+        <button onClick={resetForm ? this.handleClick : null}
                 className={styles.button}
-                type={this.props.buttonsData.buttonType}>
-          {this.props.buttonsData.buttonPurpose}
+                type={buttonType}>
+          {buttonPurpose}
         </button>
     );
   };

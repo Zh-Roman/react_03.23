@@ -11,17 +11,18 @@ class FormTextAreas extends React.Component {
 
 
   render() {
+    const {textAreasData, stateValues, updateStateValues} = this.props;
     return (
         <div className={styles.text_areas}>
-          {this.props.textAreasData.map(data =>
+          {textAreasData.map(data =>
               <div key={data.textAreasId}>
                 <label htmlFor={data.textAreasId}>{data.labelTitle}</label>
                 <textarea rows={data.areaRows}
                           name={data.textAreasId}
                           id={data.textAreasId}
-                          value={this.props.stateValues[this.formSectionName][data.textAreasId]}
+                          value={stateValues[this.formSectionName][data.textAreasId]}
                           onChange={event =>
-                              this.props.updateStateValues(this.formSectionName, data.textAreasId, event.target.value)}
+                              updateStateValues(this.formSectionName, data.textAreasId, event.target.value)}
                           required></textarea>
               </div>
           )}
