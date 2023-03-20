@@ -1,0 +1,21 @@
+.text_areas > div {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.text_areas label {
+    font-weight: 600;
+    padding-bottom: 8px;
+    font-size: 18px;
+}
+.text_areas textarea {
+    resize: none;
+    padding: 8px;
+    border: 1px solid #b7b7b7;
+    border-radius: 3px;
+    font-size: 16px;
+    background: rgba(252, 252, 252, 1);
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+}
