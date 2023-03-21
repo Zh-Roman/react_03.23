@@ -13,3 +13,8 @@
     background: url("./assets/images/background.jpg") center / cover repeat;
     overflow: hidden;
 }
+
+._offscreen {
+    position: absolute;
+    left: -9999px;
+}

@@ -8,15 +8,13 @@ class FormButton extends React.Component {
     this.state = {};
   };
 
-  handleClick = () => {
-    this.props.resetForm();
-  };
+  handleClick = () => this.props.resetForm();
 
   render() {
-    const {resetForm, buttonsData: {buttonType, buttonPurpose}} = this.props;
+    const {resetForm, buttonsData: {buttonType, buttonPurpose}, validForm} = this.props;
     return (
         <button onClick={resetForm ? this.handleClick : null}
-                className={styles.button}
+                className={validForm ? `${styles.button} ${styles.active}` : styles.button}
                 type={buttonType}>
           {buttonPurpose}
         </button>
