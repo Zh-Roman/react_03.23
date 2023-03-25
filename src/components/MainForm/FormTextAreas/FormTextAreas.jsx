@@ -1,60 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from './FormTextAreas.module.css';
 import ErrorSection from "../ErrorSection/ErrorSection";
 
-class FormTextAreas extends React.Component {
-  constructor(props) {
-    super(props);
+const FormTextAreas = ({updateStateValues, textAreasData, stateValues}) => {
+  const formSectionName = 'textAreas';
+  const [charCounter, setCharCounter] = useState({about: 0, technology: 0, lastProject: 0,});
+  const [focusElem, setFocusElem] = useState({about: false, technology: false, lastProject: false,});
 
-    this.formSectionName = 'textAreas';
-    this.state = {
-      charCounter: {about: 0, technology: 0, lastProject: 0,},
-      focusElem: {about: false, technology: false, lastProject: false,}
-    };
+  const handleOnChange = (event, textAreasName) => {
+    updateStateValues(formSectionName, textAreasName, event.target.value);
+    setCharCounter({...charCounter, [textAreasName]: event.target.value.length,});
   };
 
-  handleOnChange = (event, textAreasName) => {
-    this.props.updateStateValues(this.formSectionName, textAreasName, event.target.value);
-    this.setState({
-      ...this.state,
-      charCounter: {...this.state.charCounter, [textAreasName]: event.target.value.length,}
-    });
-  };
-
-  render() {
-    const {textAreasData, stateValues} = this.props;
-    const {charCounter, focusElem} = this.state;
-    return (
-        <div className={styles.text_areas}>
-          {textAreasData.map(({labelTitle, areaRows, maxLength, textAreasId}) =>
-              <div key={textAreasId}>
-                <label htmlFor={textAreasId}>{labelTitle}</label>
-                <textarea rows={areaRows}
-                          name={textAreasId}
-                          id={textAreasId}
-                          value={stateValues[this.formSectionName][textAreasId]}
-                          onChange={event => this.handleOnChange(event, textAreasId)}
-                          onFocus={() => this.setState({
-                            ...this.state, focusElem: {...focusElem, [textAreasId]: true,}
-                          })}
-                          onBlur={() => this.setState({
-                            ...this.state, focusElem: {...focusElem, [textAreasId]: false,}
-                          })}>
+  return (
+      <div className={styles.text_areas}>
+        {textAreasData.map(({labelTitle, areaRows, maxLength, textAreasId}) =>
+            <div key={textAreasId}>
+              <label htmlFor={textAreasId}>{labelTitle}</label>
+              <textarea rows={areaRows}
+                        name={textAreasId}
+                        id={textAreasId}
+                        value={stateValues[formSectionName][textAreasId]}
+                        onChange={event => handleOnChange(event, textAreasId)}
+                        onFocus={() => setFocusElem({...focusElem, [textAreasId]: true,})}
+                        onBlur={() => setFocusElem({...focusElem, [textAreasId]: false,})}>
                 </textarea>
-                {focusElem[textAreasId] && !stateValues.formErrors[this.formSectionName][textAreasId] && (
-                    <p>Осталось&nbsp;
-                      {stateValues[this.formSectionName][textAreasId] !== ''
-                          ? maxLength - charCounter[textAreasId]
-                          : maxLength}/{maxLength}
-                      &nbsp;символов</p>)}
-                {stateValues.formErrors[this.formSectionName][textAreasId]
-                    && <ErrorSection
-                        errorCause={stateValues[this.formSectionName][textAreasId].trim() === '' ? 'empty' : 'limit'}/>}
-              </div>
-          )}
-        </div>
-    );
-  };
-}
+              {focusElem[textAreasId] && !stateValues.formErrors[formSectionName][textAreasId] && (
+                  <p>Осталось&nbsp;
+                    {stateValues[formSectionName][textAreasId] !== ''
+                        ? maxLength - charCounter[textAreasId]
+                        : maxLength}/{maxLength}
+                    &nbsp;символов</p>)}
+              {stateValues.formErrors[formSectionName][textAreasId]
+                  && <ErrorSection
+                      errorCause={stateValues[formSectionName][textAreasId].trim() === '' ? 'empty' : 'limit'}/>}
+            </div>
+        )}
+      </div>
+  );
+};
 
 export default FormTextAreas;

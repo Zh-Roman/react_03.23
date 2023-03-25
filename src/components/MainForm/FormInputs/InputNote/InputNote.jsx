@@ -1,14 +1,8 @@
 import React from "react";
 import styles from './InputNote.module.css';
 
-class InputNote extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  inputNoteText = (inputName) => {
+const InputNote = ({id, inputId}) => {
+  const inputNoteText = (inputName) => {
     switch (inputName) {
       case 'firstName':
       case 'lastName':
@@ -23,15 +17,11 @@ class InputNote extends React.Component {
         break;
     }
   };
-
-  render() {
-    const {id, inputId} = this.props;
-    return (
-        <p id={id} className={styles.input_note}>
-          {this.inputNoteText(inputId)}
-        </p>
-    );
-  };
+  return (
+      <p id={id} className={styles.input_note}>
+        {inputNoteText(inputId)}
+      </p>
+  );
 }
 
 export default InputNote;

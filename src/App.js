@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import MainForm from "./components/MainForm/MainForm";
 import Profile from "./components/Profile/Profile";
@@ -23,29 +23,17 @@ const formData = {
   ],
 };
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.formData = formData;
-    this.state = {
-      profileData: null,
-    };
-  };
-
-  getProfileData = (dataValue) => this.setState({profileData: dataValue});
-
-  render() {
-    const {profileData} = this.state;
-    return (
-        <main className='app_styles'>
-          {profileData ? (
-              <Profile profileData={profileData} formData={this.formData}/>
-          ) : (
-              <MainForm formData={this.formData} getProfileData={this.getProfileData}/>
-          )}
-        </main>
-    );
-  };
-}
+const App = () => {
+  const [profileData, setProfileData] = useState(null);
+  return (
+      <main className='app_styles'>
+        {profileData ? (
+            <Profile profileData={profileData} formData={formData}/>
+        ) : (
+            <MainForm formData={formData} getProfileData={setProfileData}/>
+        )}
+      </main>
+  );
+};
 
 export default App;
