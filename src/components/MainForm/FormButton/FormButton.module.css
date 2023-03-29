@@ -1,24 +1,30 @@
-.button{
+.button {
     margin: 5px;
     flex: 0 0 max(30%, 200px);
-    box-shadow: 3px 4px 0 0 #899599;
-    background: #ededed linear-gradient(to bottom, #ededed 5%, #b1bab9 100%);
     border-radius: 5px;
     border: 1px solid #bcd4d6;
     display: inline-block;
     cursor: pointer;
-    color: #000000;
+    color: rgba(0, 0, 0, 0.5);
     font-size: 17px;
     font-weight: 600;
     padding: 7px 25px;
     text-decoration: none;
+    transition: all 0.5s ease 0.2s;
 }
 
-.button:hover {
+.active {
+    transition: all 0.5s ease 0.2s;
+    color: #000000;
+    box-shadow: 3px 4px 0 0 #899599;
+    background: #ededed linear-gradient(to bottom, #ededed 5%, #b1bab9 100%);
+}
+
+.active:hover {
     background: #b1b9ba linear-gradient(to bottom, #b1bab9 5%, #ededed 100%);
 }
 
-.button:active {
+.active:active {
     position: relative;
     top: 1px;
 }
