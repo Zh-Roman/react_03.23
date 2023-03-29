@@ -1,19 +1,13 @@
 import React from "react";
 import styles from "./FormTitle.module.css";
 
-class FormTitle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const FormTitle = ({title}) => {
 
-  render() {
-    return (
-        <h1 className={styles.form_title}>
-          {this.props.title}
-        </h1>
-    );
-  };
+  return (
+      <h1 className={styles.form_title}>
+        {title}
+      </h1>
+  );
 }
 
 

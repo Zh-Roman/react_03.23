@@ -4,41 +4,32 @@ import FormTitle from "../MainForm/FormTitle/FormTitle";
 import ProfileHeaderList from "./ProfileHeaderList/ProfileHeaderList";
 import ProfileBodyList from "./ProfileBodyList/ProfileBodyList";
 
-class Profile extends React.Component {
-  constructor(props) {
-    super(props);
+const Profile = ({profileData: {inputs, textAreas}, formData: {inputs: inputsFields, textAreas: textAreasFields}}) => {
 
-    this.state = {};
-  }
-
-  setTitles = (section, fieldName) => section.reduce((acc, item) => ({
+  const setTitles = (section, fieldName) => section.reduce((acc, item) => ({
     ...acc,
     [item[fieldName]]: item.labelTitle,
   }), {});
 
-  render() {
-    const {inputs, textAreas} = this.props.profileData;
-    const {inputs: inputsFields, textAreas: textAreasFields} = this.props.formData;
-    const inputsTitles = this.setTitles(inputsFields, 'inputId');
-    const textAreasTitles = this.setTitles(textAreasFields, 'textAreasId');
-    return (
-        <section className={styles.profile}>
-          <FormTitle title={`${inputs.firstName} ${inputs.lastName}`}/>
-          <div className={styles.profile_top}>
-            {Object.keys(inputsTitles).filter(item => !item.includes('Name')).map((fieldName, index) => (
-                <ProfileHeaderList key={`${fieldName}_${index}`} inputsTitles={inputsTitles} inputs={inputs}
-                                   fieldName={fieldName}/>
-            ))}
-          </div>
-          <div className={styles.profile_body}>
-            {Object.keys(textAreasTitles).map((fieldName, index) => (
-                <ProfileBodyList key={`${fieldName}_${index}`} textAreasTitles={textAreasTitles} textAreas={textAreas}
+  const inputsTitles = setTitles(inputsFields, 'inputId');
+  const textAreasTitles = setTitles(textAreasFields, 'textAreasId');
+  return (
+      <section className={styles.profile}>
+        <FormTitle title={`${inputs.firstName} ${inputs.lastName}`}/>
+        <div className={styles.profile_top}>
+          {Object.keys(inputsTitles).filter(item => !item.includes('Name')).map((fieldName, index) => (
+              <ProfileHeaderList key={`${fieldName}_${index}`} inputsTitles={inputsTitles} inputs={inputs}
                                  fieldName={fieldName}/>
-            ))}
-          </div>
-        </section>
-    );
-  }
-}
+          ))}
+        </div>
+        <div className={styles.profile_body}>
+          {Object.keys(textAreasTitles).map((fieldName, index) => (
+              <ProfileBodyList key={`${fieldName}_${index}`} textAreasTitles={textAreasTitles} textAreas={textAreas}
+                               fieldName={fieldName}/>
+          ))}
+        </div>
+      </section>
+  );
+};
 
 export default Profile;

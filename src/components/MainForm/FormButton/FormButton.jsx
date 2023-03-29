@@ -1,25 +1,19 @@
 import React from "react";
 import styles from './FormButton.module.css';
 
-class FormButton extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
+const FormButton = ({resetForm, buttonsData: {buttonType, buttonPurpose}, validForm}) => {
+  const handleCLick = () => {
+    if (resetForm) resetForm();
   };
 
-  handleClick = () => this.props.resetForm();
-
-  render() {
-    const {resetForm, buttonsData: {buttonType, buttonPurpose}, validForm} = this.props;
-    return (
-        <button onClick={resetForm ? this.handleClick : null}
-                className={validForm ? `${styles.button} ${styles.active}` : styles.button}
-                type={buttonType}>
-          {buttonPurpose}
-        </button>
-    );
-  };
+  return (
+      <button
+          onClick={handleCLick}
+          className={validForm ? `${styles.button} ${styles.active}` : styles.button}
+          type={buttonType}>
+        {buttonPurpose}
+      </button>
+  );
 }
 
 export default FormButton;
